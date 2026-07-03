@@ -1,0 +1,56 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import PageTitle from '~/components/base/PageTitle.astro'
+import { getEssayList } from '~/lib/essay'
+
+const title = 'Essay'
+const description = 'Personal essays and reflections on daily life, observations, and quiet moments.'
+const introduce =
+  'I enjoy writing down what I see and feel in daily life. It is a very heartwarming process.'
+
+const essays = await getEssayList()
+---
+
+<Layout {title} {description}>
+  <div class="relative z-[1] py-8 pb-10 px-6 sm:px-8">
+    <PageTitle {title} {introduce} />
+
+    <div class="mt-12 space-y-6 fade-up">
+      {
+        essays.length > 0 ? (
+          essays.map((essay) => (
+            <a href={essay.url} class="block">
+              <article class="group relative rounded-lg border border-border/70 bg-background/70 px-5 py-5 transition-colors duration-300 hover:bg-accent/20">
+                <div class="flex items-start gap-4">
+                  <div class="mt-1 hidden size-10 shrink-0 items-center justify-center rounded-md border border-border/70 bg-background/80 text-xl sm:flex">
+                    <span>📝</span>
+                  </div>
+                  <div class="min-w-0 flex-1">
+                    <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                      <div>
+                        <h2 class="text-lg font-semibold tracking-tight text-foreground group-hover:text-primary transition-colors duration-300">{essay.title}</h2>
+                        <p class="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">{essay.excerpt}</p>
+                      </div>
+                      <span class="shrink-0 text-xs text-muted-foreground">{essay.date}</span>
+                    </div>
+                    <div class="mt-4 flex flex-wrap gap-2 text-xs font-medium text-muted-foreground">
+                      {
+                        essay.tags.map((tag) => (
+                          <span class="rounded-md border border-border/70 bg-background/70 px-2.5 py-1">{tag}</span>
+                        ))
+                      }
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </a>
+          ))
+        ) : (
+          <div class="text-center">
+            <p class="text-sm text-muted-foreground">No essays yet — check back soon.</p>
+          </div>
+        )
+      }
+    </div>
+  </div>
+</Layout>

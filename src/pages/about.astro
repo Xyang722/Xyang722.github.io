@@ -1,0 +1,149 @@
+---
+import { SITE } from '~/config'
+import Layout from '~/layouts/Layout.astro'
+import SectionDivider from '~/components/base/SectionDivider.astro'
+
+const profileDescription =
+  'Academic profile for Rujin Qin, including research interests, education, contact information, and publication updates.'
+
+const educationItems = [
+  {
+    period: 'Sep. 2025 - Present',
+    title: 'Postgraduate in Physics',
+    detail: 'University of Science and Technology of China — Institute of Solid State Physics, Chinese Academy of Sciences',
+  },
+  {
+    period: 'Sep. 2021 - Jul. 2025',
+    title: 'B.Sc. in Physics',
+    detail: 'Shanghai University, China',
+  },
+]
+
+const interests = [
+  'Antiferromagnetic spintronics',
+  'Magnetism',
+  'Fundamental problems in condensed matter physics',
+  'Spin dynamics and topological magnetic textures',
+]
+---
+
+<Layout title="About" description={profileDescription}>
+  <div class="relative z-[1]">
+    <section class="px-6 sm:px-8 py-10 sm:py-12">
+      <div class="grid grid-cols-1 gap-8 sm:grid-cols-[14rem_1fr] sm:items-start">
+        <aside class="space-y-4">
+          <div class="aspect-[4/5] rounded-md border border-border/70 overflow-hidden">
+            <img
+              src="/zhaopian.jpg"
+              alt="Profile photo of Rujin Qin"
+              class="h-full w-full object-cover"
+            />
+          </div>
+
+          <div class="space-y-2 text-sm">
+            <a
+              href="https://orcid.org/0009-0008-5358-961X"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block rounded-md border border-border/70 bg-background/70 px-3 py-2 transition-colors hover:bg-accent/30"
+            >
+              <div class="flex items-center gap-2 text-muted-foreground">
+                <span class="icon-[simple-icons--orcid] size-4"></span>
+                <span>ORCID</span>
+              </div>
+              <p class="mt-1 font-medium text-foreground">0009-0008-5358-961X</p>
+            </a>
+            <a
+              href="mailto:xinyang20222022@126.com"
+              class="block rounded-md border border-border/70 bg-background/70 px-3 py-2 transition-colors hover:bg-accent/30"
+            >
+              <div class="flex items-center gap-2 text-muted-foreground">
+                <span class="icon-[ph--envelope-simple] size-4"></span>
+                <span>Email</span>
+              </div>
+              <p class="mt-1 font-medium text-foreground">xinyang20222022@126.com</p>
+            </a>
+          </div>
+        </aside>
+
+        <div class="min-w-0">
+          <div class="inline-flex items-center gap-2 rounded-md border border-border/70 bg-accent/35 px-3 py-1 text-xs font-medium text-muted-foreground">
+            <span class="size-1.5 rounded-full bg-primary/70"></span>
+            Academic profile
+          </div>
+          <h1 class="mt-5 text-4xl sm:text-5xl font-medium tracking-tight text-balance">{SITE.author}</h1>
+          <p class="mt-3 max-w-2xl text-xl leading-relaxed text-muted-foreground text-balance">
+            Physics graduate student at the University of Science and Technology of China (Institute of Solid State Physics, Chinese
+            Academy of Sciences), working on theoretical research in antiferromagnetic spintronics.
+          </p>
+
+          <div class="pro mt-6 max-w-2xl text-muted-foreground text-pretty">
+            <p>
+              I use this site as a quiet archive for study notes, research reading, simulation records, and small observations from daily
+              life. My current research focuses on antiferromagnetic spintronics — exploring spin dynamics, topological magnetic textures,
+              and fundamental problems in condensed matter physics through theoretical models and numerical methods.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <SectionDivider />
+
+    <section class="px-6 sm:px-8 py-10">
+      <h2 class="text-2xl sm:text-3xl tracking-tight">Education</h2>
+      <div class="mt-6 space-y-4">
+        {
+          educationItems.map((item) => (
+            <article class="relative rounded-md border border-border/70 bg-background/70 px-4 py-4">
+              <div class="text-xs font-medium uppercase tracking-wider text-muted-foreground">{item.period}</div>
+              <h3 class="mt-2 text-base font-semibold text-foreground">{item.title}</h3>
+              <p class="mt-1 text-sm leading-6 text-muted-foreground">{item.detail}</p>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <SectionDivider />
+
+    <section class="px-6 sm:px-8 py-10">
+      <h2 class="text-2xl sm:text-3xl tracking-tight">Research Interests</h2>
+      <p class="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
+        Topics and methods that currently shape my notes and project records.
+      </p>
+      <div class="mt-5 flex flex-wrap gap-2">
+        {
+          interests.map((interest) => (
+            <span class="rounded-md border border-border/70 bg-background/70 px-3 py-1.5 text-sm font-medium text-muted-foreground">
+              {interest}
+            </span>
+          ))
+        }
+      </div>
+    </section>
+
+    <SectionDivider />
+
+    <section class="px-6 sm:px-8 py-10 pb-12">
+      <h2 class="text-2xl sm:text-3xl tracking-tight">Publications</h2>
+      <div class="mt-6 rounded-md border border-border/70 bg-accent/25 px-4 py-5">
+        <div class="flex items-start gap-3">
+          <span class="icon-[ph--article] mt-0.5 size-5 shrink-0 text-primary"></span>
+          <div>
+            <h3 class="text-base font-semibold text-foreground">
+              All-electric van der Waals antiferromagnetic memory at room temperature
+            </h3>
+            <p class="mt-1 text-sm leading-6 text-muted-foreground">
+              H. Guo, L. Peng, W. Zhu, C. Yun, Z. Lin, G. Han, <strong>R.-J. Qin</strong>, Y. Sun, J. Lu, S. Lu, Y. Wu, X. Zhu, D.-F. Shao, Y. Ye, K.
+              Wang, Y. Hou, J. Yang, Z. Luo
+            </p>
+            <p class="mt-0.5 text-xs font-medium text-primary">
+              <em>Nature Electronics</em>, accepted for publication, 2026
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>

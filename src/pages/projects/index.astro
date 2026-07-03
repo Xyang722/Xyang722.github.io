@@ -1,0 +1,83 @@
+---
+import { PROJECTS_CONFIG } from '~/config'
+import Layout from '~/layouts/Layout.astro'
+import SectionDivider from '~/components/base/SectionDivider.astro'
+import { Image } from 'astro:assets'
+import { getAllProjects } from '~/lib/data'
+import PageTitle from '~/components/base/PageTitle.astro'
+
+const { title, description, introduce } = PROJECTS_CONFIG
+const projects = await getAllProjects()
+
+const isPlaceholderUrl = (url?: string) => {
+  if (!url) return true
+  return url === 'https://example.com' || url === 'https://github.com/' || url.includes('your')
+}
+---
+
+<Layout {title} {description}>
+  <div class="relative z-[1] py-10 pb-12">
+    <div class="px-6 sm:px-8">
+      <PageTitle {title} {introduce} />
+    </div>
+
+    <div class="mt-8 grid grid-cols-1 fade-up">
+      {
+        projects.map((project, index) => {
+          const hasWebsite = !isPlaceholderUrl(project.data.website)
+          const hasGithub = !isPlaceholderUrl(project.data.githubUrl)
+          const icon = project.data.icon
+
+          return (
+            <article>
+              <div class="group relative px-6 sm:px-8 py-6 transition-colors duration-300 hover:bg-accent/30">
+                <div class="flex items-start gap-4">
+                  <div class="mt-1 hidden size-10 shrink-0 items-center justify-center rounded-md border border-border/70 bg-background/80 text-xl sm:flex">
+                    {project.data.type === 'image' && icon && typeof icon !== 'string' ? (
+                      <Image src={icon} alt="" width={40} height={40} class={project.data.imageClass} densities={[1, 2]} loading="lazy" />
+                    ) : (
+                      <span>{typeof icon === 'string' ? icon : '·'}</span>
+                    )}
+                  </div>
+
+                  <div class="min-w-0 flex-1">
+                    <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                      <div>
+                        <h2 class="text-lg font-semibold tracking-tight text-foreground">{project.data.name}</h2>
+                        <p class="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">{project.data.description}</p>
+                      </div>
+
+                      {(hasWebsite || hasGithub) && (
+                        <div class="flex shrink-0 items-center gap-4 text-sm text-muted-foreground">
+                          {hasWebsite && (
+                            <a href={project.data.website} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 hover:text-foreground">
+                              <span class="icon-[ph--globe] size-4" />
+                              Website
+                            </a>
+                          )}
+                          {hasGithub && (
+                            <a href={project.data.githubUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 hover:text-foreground">
+                              <span class="icon-[mdi--github] size-4" />
+                              GitHub
+                            </a>
+                          )}
+                        </div>
+                      )}
+                    </div>
+
+                    <div class="mt-4 flex flex-wrap gap-2 text-xs font-medium text-muted-foreground">
+                      <span class="rounded-md border border-border/70 bg-background/70 px-2.5 py-1">Research practice</span>
+                      <span class="rounded-md border border-border/70 bg-background/70 px-2.5 py-1">Modeling</span>
+                      <span class="rounded-md border border-border/70 bg-background/70 px-2.5 py-1">Simulation notes</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <SectionDivider className={index == projects.length - 1 ? 'hidden' : ''} />
+            </article>
+          )
+        })
+      }
+    </div>
+  </div>
+</Layout>

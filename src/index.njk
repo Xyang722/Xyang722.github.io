@@ -1,0 +1,49 @@
+---
+layout: base.njk
+title: "Qin 的个人主页"
+---
+
+{% import "section-heading.njk" as heading %}
+{% import "card-grid.njk" as cardGrid %}
+{% import "gallery-grid.njk" as galleryGrid %}
+{% import "contact-list.njk" as contactList %}
+
+<main>
+
+{# Hero #}
+{% include "hero.njk" %}
+
+{# About #}
+{% include "about.njk" %}
+
+{# Study Notes #}
+<section id="notes">
+  {{ heading.heading("Notes", "学习笔记") }}
+  {{ cardGrid.grid(notes) }}
+</section>
+
+{# Reading Reports #}
+<section id="reading">
+  {{ heading.heading("Reading", "文献总结 & 读书报告") }}
+  {{ cardGrid.grid(reading) }}
+</section>
+
+{# Research Projects #}
+<section id="projects">
+  {{ heading.heading("Research", "研究项目") }}
+  {{ cardGrid.grid(projects) }}
+</section>
+
+{# Gallery #}
+<section id="gallery">
+  {{ heading.heading("Gallery", "生活相册") }}
+  {{ galleryGrid.grid(gallery) }}
+</section>
+
+{# Contact #}
+<section id="contact">
+  {{ heading.heading("Contact", "联系方式") }}
+  {{ contactList.list(contact) }}
+</section>
+
+</main>
