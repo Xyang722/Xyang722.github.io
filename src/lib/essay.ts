@@ -18,7 +18,7 @@ export async function getEssayList(): Promise<EssayEntry[]> {
     .sort((a, b) => {
       const dateA = a.data.pubDate
       const dateB = b.data.pubDate
-      return new Date(dateA).getTime() - new Date(dateB).getTime()
+      return new Date(dateB).getTime() - new Date(dateA).getTime()
     })
     .map((post) => ({
       title: post.data.title,
